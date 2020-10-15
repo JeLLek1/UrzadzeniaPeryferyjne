@@ -15,10 +15,9 @@ namespace Lab_12_Cam
 {
     public partial class Form1 : Form
     {
-        USBCam cam;
         short recordState = 0;
-        string captureFile = "videło";
-        CamThread thread;
+        string captureFile = "video";
+        private System.Windows.Forms.Timer timer;
         public Form1()
         {
             InitializeComponent();
@@ -47,11 +46,34 @@ namespace Lab_12_Cam
             Page.Enabled = true;
         }
 
+        private void tick_function(object sender, EventArgs e)
+        {
+            if (USBCam.getInstance().is_enabled)
+            {
+                string temp = Directory.GetCurrentDirectory() + "\\appTemp.jpg";
+                string desc = Directory.GetCurrentDirectory() + "\\app.jpg";
+                try
+                {
+                    if(USBCam.getInstance().SaveImageWithName(temp, true))
+                    {
+                        MessageBox.Show("Nie ruszaj się!", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    if (File.Exists(desc))
+                        File.Delete(desc);
+                    System.IO.File.Move(Directory.GetCurrentDirectory() + "\\appTemp.jpg", Directory.GetCurrentDirectory() + "\\app.jpg");
+                }
+                catch (Exception) { }
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            cam = USBCam.getInstance();
-            cam.Container = CamView;
+            USBCam.getInstance().Container = CamView;
             disableButtons();
+            timer = new System.Windows.Forms.Timer();
+            timer.Tick += new EventHandler(tick_function);
+            timer.Interval = 500;
+            timer.Start();
         }
 
         private void CamView_Click(object sender, EventArgs e)
@@ -60,13 +82,9 @@ namespace Lab_12_Cam
 
         private void Disconnect_Click(object sender, EventArgs e)
         {
-            if (thread != null && thread.thr.IsAlive)
-            {
-                thread.thr.Abort();
-            }
             try
             {
-                cam.Dispose();
+                USBCam.getInstance().Dispose();
                 disableButtons();
             }
             catch(Exception exc) {
@@ -78,7 +96,7 @@ namespace Lab_12_Cam
         {
             try
             {
-                cam.OpenConnection();
+                USBCam.getInstance().OpenConnection();
                 enableButtons();
             }
             catch (Exception exc)
@@ -89,7 +107,7 @@ namespace Lab_12_Cam
 
         private void Picture_Click(object sender, EventArgs e)
         {
-            cam.SaveImage();
+            USBCam.getInstance().SaveImage();
         }
 
         private void Record_Click(object sender, EventArgs e)
@@ -100,13 +118,13 @@ namespace Lab_12_Cam
                 recordState = 1;
                 InputBox("Wprowadź nazwę pliku", "format .avi", ref captureFile);
                 Record.Text = "Zatrzymaj nagrywanie";
-                cam.StartRecord(captureFile);
+                USBCam.getInstance().StartRecord(captureFile);
             }
             else
             {
                 recordState = 0;
                 Record.Text = "Rozpocznij nagrywanie";
-                cam.StopRecord(captureFile);
+                USBCam.getInstance().StopRecord(captureFile);
             }
         }
 
@@ -154,20 +172,16 @@ namespace Lab_12_Cam
 
         private void Parameters_Click(object sender, EventArgs e)
         {
-            cam.ChangeParameters();
+            USBCam.getInstance().ChangeParameters();
         }
 
         private void Resolution_Click(object sender, EventArgs e)
         {
-            cam.ChangeResolution();
+            USBCam.getInstance().ChangeResolution();
         }
 
         private void Page_Click(object sender, EventArgs e)
         {
-            if(thread == null || !thread.thr.IsAlive)
-            {
-                thread = new CamThread();
-            }
             
             ProcessStartInfo sInfo = new ProcessStartInfo(Directory.GetCurrentDirectory()+"\\app.html");
             Process.Start(sInfo);

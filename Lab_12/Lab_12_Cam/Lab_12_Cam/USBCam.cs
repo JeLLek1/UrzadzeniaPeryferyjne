@@ -17,6 +17,9 @@ namespace Lab_12_Cam
      * each constant represent a state*/
 
         private static USBCam instance= null;
+        public bool is_enabled = false;
+        Bitmap last_frame = null;
+        const float image_diff = 0.1f;
 
         private const int WM_USER = 0x400;
         private const int WM_CAP = WM_USER;
@@ -138,7 +141,8 @@ namespace Lab_12_Cam
 
                 // Resize window to fit in picturebox
                 SetWindowPos(hHwnd, HWND_BOTTOM, 0, 0, Container.Height, Container.Width, SWP_NOMOVE | SWP_NOZORDER);
-     
+
+                is_enabled = true;
         }
             else
             {
@@ -169,24 +173,55 @@ namespace Lab_12_Cam
             }
         }
 
-        public void SaveImageWithName(String name)
+        public bool SaveImageWithName(String name, bool test_movment = false)
         {
+            bool movment = false;
             IDataObject data;
             Image oImage;
-            SendMessage(hHwnd, WM_CAP_EDIT_COPY, 0, 0);
+            int message = SendMessage(hHwnd, WM_CAP_EDIT_COPY, 0, 0);
             data = Clipboard.GetDataObject();
-            if (data.GetDataPresent(typeof(System.Drawing.Bitmap)))
+            if (data != null && data.GetDataPresent(typeof(System.Drawing.Bitmap)))
             {
                 oImage = (Image)data.GetData(typeof(System.Drawing.Bitmap));
-                Container.Image = oImage;
-                oImage.Save(name, System.Drawing.Imaging.ImageFormat.Bmp);
+                if(oImage != null) {
+                    oImage.Save(name, System.Drawing.Imaging.ImageFormat.Bmp);
+                    if (last_frame != null){
+                        if (test_movment)
+                        {
+                            movment = check_movment((Bitmap)oImage);
+                        }
+                        last_frame.Dispose();
+                    }
+                    last_frame = (Bitmap)oImage;
+                }
             }
+            return movment;
         }
 
-        public IDataObject test()
+        private bool check_movment(Bitmap image)
         {
-            SendMessage(hHwnd, WM_CAP_EDIT_COPY, 0, 0);
-            return Clipboard.GetDataObject();
+            int frameCount = image.Width * image.Height;
+            int frameDiff = 0;
+            for (int i=0; i<image.Width; i++)
+            {
+                for(int j=0; j<image.Height; j++)
+                {
+                    Color test1 = image.GetPixel(i, j);
+                    Color test2 = last_frame.GetPixel(i, j);
+                    double test = (Math.Pow((double)test1.R - (double)test2.R, 2)
+                        + Math.Pow((double)test1.G - (double)test2.G, 2)
+                        + Math.Pow((double)test1.B - (double)test2.B, 2))/195075;
+                    if (test > image_diff)
+                    {
+                        frameDiff++;
+                    }
+                }
+            }
+            if ((float)frameDiff/frameCount>image_diff)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void StartRecord(string name)
@@ -220,6 +255,7 @@ namespace Lab_12_Cam
 
         {
             CloseConnection();
+            is_enabled = false;
         }
         #endregion
     }
