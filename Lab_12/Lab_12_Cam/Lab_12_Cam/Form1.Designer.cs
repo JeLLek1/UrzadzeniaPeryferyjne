@@ -160,7 +160,7 @@
             this.Controls.Add(this.Disconnect);
             this.Controls.Add(this.Connect);
             this.Controls.Add(this.CamView);
-            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CamView)).EndInit();
