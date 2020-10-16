@@ -36,6 +36,7 @@
             this.Parameters = new System.Windows.Forms.Button();
             this.Resolution = new System.Windows.Forms.Button();
             this.Page = new System.Windows.Forms.Button();
+            this.Motion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CamView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,15 +113,26 @@
             // 
             this.Page.Location = new System.Drawing.Point(10, 460);
             this.Page.Name = "Page";
-            this.Page.Size = new System.Drawing.Size(92, 21);
+            this.Page.Size = new System.Drawing.Size(92, 22);
             this.Page.TabIndex = 7;
             this.Page.Text = "Otwrzórz stronę";
             this.Page.UseVisualStyleBackColor = true;
             this.Page.Click += new System.EventHandler(this.Page_Click);
             // 
+            // Motion
+            // 
+            this.Motion.Location = new System.Drawing.Point(110, 459);
+            this.Motion.Name = "Motion";
+            this.Motion.Size = new System.Drawing.Size(147, 23);
+            this.Motion.TabIndex = 8;
+            this.Motion.Text = "Włącz wykrywanie ruchu";
+            this.Motion.UseVisualStyleBackColor = true;
+            this.Motion.Click += new System.EventHandler(this.Motion_Click);
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(455, 511);
+            this.ClientSize = new System.Drawing.Size(455, 494);
+            this.Controls.Add(this.Motion);
             this.Controls.Add(this.Page);
             this.Controls.Add(this.Resolution);
             this.Controls.Add(this.Parameters);
@@ -146,6 +158,7 @@
         private System.Windows.Forms.Button Parameters;
         private System.Windows.Forms.Button Resolution;
         private System.Windows.Forms.Button Page;
+        private System.Windows.Forms.Button Motion;
     }
 }
 

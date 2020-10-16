@@ -18,6 +18,7 @@ namespace Lab_12_Cam
         short recordState = 0;
         string captureFile = "video";
         private System.Windows.Forms.Timer timer;
+        bool motionCapture = false;
         public Form1()
         {
             InitializeComponent();
@@ -30,9 +31,12 @@ namespace Lab_12_Cam
             Picture.Enabled = false;
             Record.Enabled = false;
             Record.Text = "Rozpocznij nagrywanie";
+            Motion.Text = "Włącz wykrywanie ruchu";
+            motionCapture = false;
             Parameters.Enabled = false;
             Resolution.Enabled = false;
             Page.Enabled = false;
+            Motion.Enabled = false;
         }
 
         private void enableButtons()
@@ -44,6 +48,7 @@ namespace Lab_12_Cam
             Parameters.Enabled = true;
             Resolution.Enabled = true;
             Page.Enabled = true;
+            Motion.Enabled = true;
         }
 
         private void tick_function(object sender, EventArgs e)
@@ -54,7 +59,7 @@ namespace Lab_12_Cam
                 string desc = Directory.GetCurrentDirectory() + "\\app.jpg";
                 try
                 {
-                    if(USBCam.getInstance().SaveImageWithName(temp, true))
+                    if(USBCam.getInstance().SaveImageWithName(temp, motionCapture))
                     {
                         MessageBox.Show("Nie ruszaj się!", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -186,6 +191,20 @@ namespace Lab_12_Cam
             ProcessStartInfo sInfo = new ProcessStartInfo(Directory.GetCurrentDirectory()+"\\app.html");
             Process.Start(sInfo);
 
+        }
+
+        private void Motion_Click(object sender, EventArgs e)
+        {
+            if (motionCapture)
+            {
+                motionCapture = false;
+                Motion.Text = "Włącz wykrywanie ruchu";
+            }
+            else
+            {
+                motionCapture = true;
+                Motion.Text = "Wyłącz wykrywanie ruchu";
+            }
         }
     }
 }
