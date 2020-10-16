@@ -15,8 +15,7 @@ namespace Lab_12_Cam
 {
     public class USBCam : IDisposable
     {
-        /* Those contants are used to overload the unmanaged code functions
-     * each constant represent a state*/
+        //stałe przechowujące kody komend
 
         private static USBCam instance= null;
         public bool is_enabled = false;
@@ -45,69 +44,69 @@ namespace Lab_12_Cam
         private const short SWP_NOZORDER = 0x4;
         private const short HWND_BOTTOM = 1;
 
-        //This function enables enumerate the web cam devices
+        //pobranie urządzenia przechwytywania o podanym id
         [DllImport("avicap32.dll")]
         protected static extern bool capGetDriverDescriptionA(short wDriverIndex,
             [MarshalAs(UnmanagedType.VBByRefStr)]ref String lpszName,
            int cbName, [MarshalAs(UnmanagedType.VBByRefStr)] ref String lpszVer, int cbVer);
 
-        //This function enables create a  window child with so that you can display it in a picturebox for example
+        //tworzenie okna (dziecka) aby przechytywać obraz i wyświetlać go później w PictureBox
         [DllImport("avicap32.dll")]
         protected static extern int capCreateCaptureWindowA([MarshalAs(UnmanagedType.VBByRefStr)] ref string
     lpszWindowName,
             int dwStyle, int x, int y, int nWidth, int nHeight, int hWndParent, int nID);
 
-        //This function enables set changes to the size, position, and Z order of a child window
+        //zmiana ustawień pozycji okna strumienia
         [DllImport("user32")]
         protected static extern int SetWindowPos(int hwnd, int hWndInsertAfter, int x, int y, int cx, int cy, int wFlags);
 
-        //This function enables send the specified message to a window or windows
+        //Wysyłanie wiadomości do okna
         [DllImport("user32", EntryPoint = "SendMessageA")]
         protected static extern int SendMessage(int hwnd, int wMsg, int wParam, [MarshalAs(UnmanagedType.AsAny)] object
     lParam);
 
-        //This function enable destroy the window child
+        //pozwala na usuwanie okna podlgądu
         [DllImport("user32")]
         protected static extern bool DestroyWindow(int hwnd);
 
         // Normal device ID
         public int DeviceID = 0;
-        // Handle value to preview window
+        //zmienna przechowująca wartość okna podglądu aby módz zarządzać komunikacją
         int hHwnd = 0;
-        //The devices list
+        //Lista urządzeń
         public ArrayList ListOfDevices = new ArrayList();
 
-        //The picture to be displayed
+        //kontener PictureBox do przechwytywania podglądu
         public PictureBox Container { get; set; }
 
-        // Connect to the device.
-        /// <summary>
-        /// This function is used to load the list of the devices
-        /// </summary>
+        //Wczytanie dostępnych urządzeń
         public void Load()
         {
+            //zmienne przechowujące tymczasowo informacje o urządzeniu
             string Name = String.Empty.PadRight(100);
             string Version = String.Empty.PadRight(100);
             bool EndOfDeviceList = false;
             short index = 0;
 
-            // Load name of all avialable devices into the lstDevices .
+            //dopuki istnieje lista urządzeń
             do
             {
-                // Get Driver name and version
+                //Pobranie wersji i nazwy urządzenia
                 EndOfDeviceList = capGetDriverDescriptionA(index, ref Name, 100, ref Version, 100);
-                // If there was a device add device name to the list
+                //Jeżeli nie jest to ostatnie urzadzenie to dodanie go do listy
                 if (EndOfDeviceList) ListOfDevices.Add(Name.Trim());
                 index += 1;
             }
             while (!(EndOfDeviceList == false));
         }
-
+        //konstruktor
         private USBCam()
         {
+            //wczytanie dostępnych urządzeń
             Load();
         }
 
+        //singleton (pobranie instancji)
         public static USBCam getInstance()
         {
             if(instance == null)
@@ -116,39 +115,37 @@ namespace Lab_12_Cam
             }
             return instance;
         }
-        /// <summary>
-        /// Function used to display the output from a video capture device, you need to create
-        /// a capture window.
-        /// </summary>
+        
+        //otwarcie połączenia z kamerą
         public void OpenConnection()
         {
+            //MCI Device (przechytywania streemowania)
             string DeviceIndex = Convert.ToString(DeviceID);
+            //element przechwytujący stream
             IntPtr oHandle = Container.Handle;
 
-            // Open Preview window in picturebox .
-            // Create a child window with capCreateCaptureWindowA so you can display it in a picturebox.
-
+            //otwarcie okna przechwytu obrazu po podaniu MCI, stałych ustawień i wskaźnika na element przechwytujący
             hHwnd = capCreateCaptureWindowA(ref DeviceIndex, WS_VISIBLE | WS_CHILD, 0, 0, 640, 480, oHandle.ToInt32(), 0);
 
-            // Connect to device
+            //połączenie z kamerą
             if (SendMessage(hHwnd, WM_CAP_DRIVER_CONNECT, DeviceID, 0) != 0)
             {
-                // Set the preview scale
+                //skala przechytywaneko podglądu
                 SendMessage(hHwnd, WM_CAP_SET_SCALE, -1, 0);
-                // Set the preview rate in terms of milliseconds
+                //prędkość podglądu w milisekundach
                 SendMessage(hHwnd, WM_CAP_SET_PREVIEWRATE, 66, 0);
 
-                // Start previewing the image from the camera
+                //rozpoczęcie podglądu
                 SendMessage(hHwnd, WM_CAP_SET_PREVIEW, -1, 0);
 
-                // Resize window to fit in picturebox
+                //rozszczerzenie ekranu aby pasował do PistureBox
                 SetWindowPos(hHwnd, HWND_BOTTOM, 0, 0, Container.Height, Container.Width, SWP_NOMOVE | SWP_NOZORDER);
 
                 is_enabled = true;
         }
             else
             {
-                // Error connecting to device close window
+                //Błąd połączenia, niszczenie podglądu
                 DestroyWindow(hHwnd);
 
                 is_enabled = false;
@@ -156,7 +153,7 @@ namespace Lab_12_Cam
             }
         }
 
-        //Close windows
+        //zamknięcie okna przechwytywania obrazu oraz połączenia z kamerą
         void CloseConnection()
 
         {
@@ -165,61 +162,65 @@ namespace Lab_12_Cam
             DestroyWindow(hHwnd);
         }
 
-        //Save image
-
-        public void SaveImage()
-        {
-            SaveFileDialog sfdImage = new SaveFileDialog();
-            sfdImage.Filter = "(*.jpg)|*.jpg";
-
-            if (sfdImage.ShowDialog() == DialogResult.OK)
-            {
-                SaveImageWithName(sfdImage.FileName);
-            }
-        }
-
+        //zapis zdjęcia z podaną nazwą + dodatkowo jeżeli wymagane użycie metody sprawdzającej różnice z ostatnią klatką
         public bool SaveImageWithName(String name, bool test_movment = false)
         {
+            //czy wykryto ruch
             bool movment = false;
             IDataObject data;
             Image oImage;
+            //pobranie aktualnej klatki kamery
             int message = SendMessage(hHwnd, WM_CAP_EDIT_COPY, 0, 0);
             data = Clipboard.GetDataObject();
+            //jeżeli udało się pobrać klatkę 
             if (data != null && data.GetDataPresent(typeof(System.Drawing.Bitmap)))
             {
+                //wczytanie klatki jako obrazka
                 oImage = (Image)data.GetData(typeof(System.Drawing.Bitmap));
                 if(oImage != null)
                 {
+                    //bitmapy klatek ostatniej i aktualnej
                     Bitmap tmp = last_frame;
                     last_frame = (Bitmap)oImage;
+                    //jeżeli wcześniejsza klatka jest już ustawiona
                     if (tmp != null){
+                        //wykrywanie ruchu jeżeli jest potrzeba
                         if (test_movment)
                         {
                             movment = check_movment(tmp, last_frame);
                         }
+                        //zapis obrazka do podanego pliku
                         tmp.Save(name, System.Drawing.Imaging.ImageFormat.Bmp);
+                        //zwolnienie zasobu obrazka
                         tmp.Dispose();
                     }
                 }
             }
             return movment;
         }
-
+        //wykrywanie róznicy w pikselach i zamiana róznych pikseli na czerwone
         private bool check_movment(Bitmap image, Bitmap image2)
         {
+            //ilość pikseli
             int frameCount = image.Width * image.Height;
+            //ilość różnych pikseli
             int frameDiff = 0;
+            //rozmiar bitmapy
             Rectangle rect = new Rectangle(0, 0, image.Width, image.Height);
-
+            //wczytanie bitmapy do "tablicy" aby mieć swobodny dostęp do danych pikseli i zamiana na formatowanie 8bitowe dla skrócenia operacji
             BitmapData data1 = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
             BitmapData data2 = image2.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
-            int offset = data1.Stride - image.Width;
+
+            //operacje na wskaźnikach
             unsafe
             {
+                //zamiana bitmapy na tablice bajtów
                 byte* ptr1 = (byte*)data1.Scan0.ToPointer();
                 byte* ptr2 = (byte*)data2.Scan0.ToPointer();
+                //dla wszystkich pikseli
                 for (int i = 0; i < frameCount; i++)
                 {
+                    //jeżeli są różne zamiana na czerwone i zliczanie
                     if (ptr1[i] != ptr2[i])
                     {
                         ptr1[i] = 0b00001001;
@@ -227,42 +228,41 @@ namespace Lab_12_Cam
                     }
                 }
             }
-
+            //odblokowanie bitów
             image.UnlockBits(data1);
             image2.UnlockBits(data2);
 
+            //obliczanie stopnia różnicy i jeżeli stopień różnicy większy od ustawionego to zwraca true
             if ((float)frameDiff/frameCount>image_diff)
             {
                 return true;
             }
             return false;
         }
-
+        //włączanie nagrywania i zapisu do danego pliku
         public void StartRecord(string name)
         {
             SendMessage(hHwnd, WM_CAP_FILE_SET_CAPTURE_FILE, 0, name);
             SendMessage(hHwnd, WM_CAP_SEQUENCE, 0, 0);
         }
-
+        //zatrzymanie zapisywania nagrywania w podanym pliku
         public void StopRecord(string name)
         {
             SendMessage(hHwnd, WM_CAP_STOP, 0, 0);
             SendMessage(hHwnd, WM_CAP_FILE_SAVEAS, 0, name);
         }
-
+        //wywołanie okna zmiany właściwości kamery
         public void ChangeParameters()
         {
             SendMessage(hHwnd, WM_CAP_DLG_VIDEOSOURCE, 0, 0);
         }
-
+        //wysołanie okna zmiany rozdzielczości/formatu
         public void ChangeResolution()
         {
             SendMessage(hHwnd, WM_CAP_DLG_VIDEOFORMAT, 0, 0);
         }
 
-        /// <summary>
-        /// This function is used to dispose the connection to the device
-        /// </summary>
+        //zwolnienie połączenia z kamerą
         #region IDisposable Members
 
         public void Dispose()

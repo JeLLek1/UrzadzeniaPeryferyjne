@@ -15,16 +15,21 @@ namespace Lab_12_Cam
 {
     public partial class Form1 : Form
     {
+        //informacja o tym czy nagranie jest włączone
         short recordState = 0;
+        //informacja o pliku przechowującym nagranie
         string captureFile;
+        //timer przechowujący funkcję wykrywania ruchu i zapisu do pliku dla strony
         private System.Windows.Forms.Timer timer;
+        //czy wykrywanie ruchu zostało włączone
         bool motionCapture = false;
+        //czy jest wyświetlany aktualnie komunikat o wykrytym ruchu
         bool motionInfo = false;
         public Form1()
         {
             InitializeComponent();
         }
-
+        //wyłączanie przyciskó i ustawianie domyślnych wartości nazw (jeżeli rozłączono z kamerą)
         private void disableButtons()
         {
             Connect.Enabled = true;
@@ -39,7 +44,7 @@ namespace Lab_12_Cam
             Page.Enabled = false;
             Motion.Enabled = false;
         }
-
+        //włączanie przycisków (jeżeli połączono z kamerą)
         private void enableButtons()
         {
             Connect.Enabled = false;
@@ -51,7 +56,7 @@ namespace Lab_12_Cam
             Page.Enabled = true;
             Motion.Enabled = true;
         }
-
+        //funkcja wykrywania ruchu i zapisu do pliku dla strony internetowej
         private void tick_function(object sender, EventArgs e)
         {
             if (USBCam.getInstance().is_enabled)
@@ -122,7 +127,14 @@ namespace Lab_12_Cam
 
         private void Picture_Click(object sender, EventArgs e)
         {
-            USBCam.getInstance().SaveImage();
+            SaveFileDialog sfdImage = new SaveFileDialog();
+            sfdImage.Filter = "(*.jpg)|*.jpg";
+
+            if (sfdImage.ShowDialog() == DialogResult.OK)
+            {
+
+                USBCam.getInstance().SaveImageWithName(sfdImage.FileName);
+            }
         }
 
         private void Record_Click(object sender, EventArgs e)
