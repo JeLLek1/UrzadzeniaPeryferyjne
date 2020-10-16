@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
+using System.Security.Cryptography;
 
 namespace Lab_12_Cam
 {
@@ -20,7 +21,7 @@ namespace Lab_12_Cam
         private static USBCam instance= null;
         public bool is_enabled = false;
         Bitmap last_frame = null;
-        const float image_diff = 0.1f;
+        public float image_diff = 0.4f;
 
         private const int WM_USER = 0x400;
         private const int WM_CAP = WM_USER;
@@ -41,8 +42,8 @@ namespace Lab_12_Cam
         private const int WS_CHILD = 0x40000000;
         private const int WS_VISIBLE = 0x10000000;
         private const short SWP_NOMOVE = 0x2;
-        private short SWP_NOZORDER = 0x4;
-        private short HWND_BOTTOM = 1;
+        private const short SWP_NOZORDER = 0x4;
+        private const short HWND_BOTTOM = 1;
 
         //This function enables enumerate the web cam devices
         [DllImport("avicap32.dll")]
@@ -70,7 +71,7 @@ namespace Lab_12_Cam
         protected static extern bool DestroyWindow(int hwnd);
 
         // Normal device ID
-        int DeviceID = 0;
+        public int DeviceID = 0;
         // Handle value to preview window
         int hHwnd = 0;
         //The devices list
@@ -104,7 +105,7 @@ namespace Lab_12_Cam
 
         private USBCam()
         {
-
+            Load();
         }
 
         public static USBCam getInstance()
@@ -149,6 +150,9 @@ namespace Lab_12_Cam
             {
                 // Error connecting to device close window
                 DestroyWindow(hHwnd);
+
+                is_enabled = false;
+                throw new Exception("Błąd połączenia");
             }
         }
 
@@ -201,8 +205,6 @@ namespace Lab_12_Cam
             return movment;
         }
 
-        //https://docs.microsoft.com/pl-pl/dotnet/api/system.drawing.bitmap.unlockbits?view=dotnet-plat-ext-3.1
-        //zamiana na bitmape bo to coś wolne
         private bool check_movment(Bitmap image, Bitmap image2)
         {
             int frameCount = image.Width * image.Height;

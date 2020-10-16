@@ -117,4 +117,327 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="CamView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 12</value>
+  </data>
+  <data name="CamView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 360</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CamView.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;CamView.Name" xml:space="preserve">
+    <value>CamView</value>
+  </data>
+  <data name="&gt;&gt;CamView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CamView.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CamView.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="Connect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>78, 399</value>
+  </data>
+  <data name="Connect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="Connect.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="Connect.Text" xml:space="preserve">
+    <value>Połącz</value>
+  </data>
+  <data name="&gt;&gt;Connect.Name" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="&gt;&gt;Connect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Connect.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Connect.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="Disconnect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 399</value>
+  </data>
+  <data name="Disconnect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 22</value>
+  </data>
+  <data name="Disconnect.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="Disconnect.Text" xml:space="preserve">
+    <value>Rozłącz</value>
+  </data>
+  <data name="&gt;&gt;Disconnect.Name" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="&gt;&gt;Disconnect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Disconnect.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Disconnect.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="Picture.Location" type="System.Drawing.Point, System.Drawing">
+    <value>139, 461</value>
+  </data>
+  <data name="Picture.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 26</value>
+  </data>
+  <data name="Picture.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="Picture.Text" xml:space="preserve">
+    <value>Zrób zdjęcie</value>
+  </data>
+  <data name="&gt;&gt;Picture.Name" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="&gt;&gt;Picture.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Picture.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Picture.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="Record.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 461</value>
+  </data>
+  <data name="Record.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 26</value>
+  </data>
+  <data name="Record.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="Record.Text" xml:space="preserve">
+    <value>Rozpocznij nagrywanie</value>
+  </data>
+  <data name="&gt;&gt;Record.Name" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="&gt;&gt;Record.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Record.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Record.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Parameters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>279, 427</value>
+  </data>
+  <data name="Parameters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 27</value>
+  </data>
+  <data name="Parameters.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="Parameters.Text" xml:space="preserve">
+    <value>Właściwości</value>
+  </data>
+  <data name="&gt;&gt;Parameters.Name" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="&gt;&gt;Parameters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Parameters.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Parameters.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Resolution.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 427</value>
+  </data>
+  <data name="Resolution.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 27</value>
+  </data>
+  <data name="Resolution.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="Resolution.Text" xml:space="preserve">
+    <value>Rozdzielczość</value>
+  </data>
+  <data name="&gt;&gt;Resolution.Name" xml:space="preserve">
+    <value>Resolution</value>
+  </data>
+  <data name="&gt;&gt;Resolution.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Resolution.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Resolution.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Page.Location" type="System.Drawing.Point, System.Drawing">
+    <value>253, 461</value>
+  </data>
+  <data name="Page.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 26</value>
+  </data>
+  <data name="Page.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="Page.Text" xml:space="preserve">
+    <value>Otwrzórz stronę</value>
+  </data>
+  <data name="&gt;&gt;Page.Name" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="&gt;&gt;Page.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Page.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Page.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Motion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 428</value>
+  </data>
+  <data name="Motion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 27</value>
+  </data>
+  <data name="Motion.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="Motion.Text" xml:space="preserve">
+    <value>Włącz wykrywanie ruchu</value>
+  </data>
+  <data name="&gt;&gt;Motion.Name" xml:space="preserve">
+    <value>Motion</value>
+  </data>
+  <data name="&gt;&gt;Motion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Motion.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Motion.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="MCI_combo_box.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 545</value>
+  </data>
+  <data name="MCI_combo_box.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 21</value>
+  </data>
+  <data name="MCI_combo_box.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;MCI_combo_box.Name" xml:space="preserve">
+    <value>MCI_combo_box</value>
+  </data>
+  <data name="&gt;&gt;MCI_combo_box.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MCI_combo_box.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MCI_combo_box.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="MDI_text.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MDI_text.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 529</value>
+  </data>
+  <data name="MDI_text.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 13</value>
+  </data>
+  <data name="MDI_text.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="MDI_text.Text" xml:space="preserve">
+    <value>Urządzenie MCI:</value>
+  </data>
+  <data name="&gt;&gt;MDI_text.Name" xml:space="preserve">
+    <value>MDI_text</value>
+  </data>
+  <data name="&gt;&gt;MDI_text.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MDI_text.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MDI_text.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="MotionSens.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 506</value>
+  </data>
+  <data name="MotionSens.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 20</value>
+  </data>
+  <data name="MotionSens.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;MotionSens.Name" xml:space="preserve">
+    <value>MotionSens</value>
+  </data>
+  <data name="&gt;&gt;MotionSens.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MotionSens.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MotionSens.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 490</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Czułość czujnika ruchu</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>380, 574</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Form1</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

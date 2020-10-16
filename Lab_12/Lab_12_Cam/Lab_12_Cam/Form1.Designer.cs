@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.CamView = new System.Windows.Forms.PictureBox();
             this.Connect = new System.Windows.Forms.Button();
             this.Disconnect = new System.Windows.Forms.Button();
@@ -37,101 +38,119 @@
             this.Resolution = new System.Windows.Forms.Button();
             this.Page = new System.Windows.Forms.Button();
             this.Motion = new System.Windows.Forms.Button();
+            this.MCI_combo_box = new System.Windows.Forms.ComboBox();
+            this.MDI_text = new System.Windows.Forms.Label();
+            this.MotionSens = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CamView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MotionSens)).BeginInit();
             this.SuspendLayout();
             // 
             // CamView
             // 
-            this.CamView.Location = new System.Drawing.Point(10, 12);
+            resources.ApplyResources(this.CamView, "CamView");
             this.CamView.Name = "CamView";
-            this.CamView.Size = new System.Drawing.Size(426, 360);
-            this.CamView.TabIndex = 0;
             this.CamView.TabStop = false;
             this.CamView.Click += new System.EventHandler(this.CamView_Click);
             // 
             // Connect
             // 
-            this.Connect.Location = new System.Drawing.Point(10, 399);
+            resources.ApplyResources(this.Connect, "Connect");
             this.Connect.Name = "Connect";
-            this.Connect.Size = new System.Drawing.Size(75, 23);
-            this.Connect.TabIndex = 1;
-            this.Connect.Text = "Połącz";
             this.Connect.UseVisualStyleBackColor = true;
             this.Connect.Click += new System.EventHandler(this.Connect_Click);
             // 
             // Disconnect
             // 
-            this.Disconnect.Location = new System.Drawing.Point(91, 399);
+            resources.ApplyResources(this.Disconnect, "Disconnect");
             this.Disconnect.Name = "Disconnect";
-            this.Disconnect.Size = new System.Drawing.Size(75, 22);
-            this.Disconnect.TabIndex = 2;
-            this.Disconnect.Text = "Rozłącz";
             this.Disconnect.UseVisualStyleBackColor = true;
             this.Disconnect.Click += new System.EventHandler(this.Disconnect_Click);
             // 
             // Picture
             // 
-            this.Picture.Location = new System.Drawing.Point(10, 428);
+            resources.ApplyResources(this.Picture, "Picture");
             this.Picture.Name = "Picture";
-            this.Picture.Size = new System.Drawing.Size(75, 26);
-            this.Picture.TabIndex = 3;
-            this.Picture.Text = "Zrób zdjęcie";
             this.Picture.UseVisualStyleBackColor = true;
             this.Picture.Click += new System.EventHandler(this.Picture_Click);
             // 
             // Record
             // 
-            this.Record.Location = new System.Drawing.Point(93, 432);
+            resources.ApplyResources(this.Record, "Record");
             this.Record.Name = "Record";
-            this.Record.Size = new System.Drawing.Size(125, 21);
-            this.Record.TabIndex = 4;
-            this.Record.Text = "Rozpocznij nagrywanie";
             this.Record.UseVisualStyleBackColor = true;
             this.Record.Click += new System.EventHandler(this.Record_Click);
             // 
             // Parameters
             // 
-            this.Parameters.Location = new System.Drawing.Point(224, 432);
+            resources.ApplyResources(this.Parameters, "Parameters");
             this.Parameters.Name = "Parameters";
-            this.Parameters.Size = new System.Drawing.Size(91, 21);
-            this.Parameters.TabIndex = 5;
-            this.Parameters.Text = "Właściwości";
             this.Parameters.UseVisualStyleBackColor = true;
             this.Parameters.Click += new System.EventHandler(this.Parameters_Click);
             // 
             // Resolution
             // 
-            this.Resolution.Location = new System.Drawing.Point(329, 432);
+            resources.ApplyResources(this.Resolution, "Resolution");
             this.Resolution.Name = "Resolution";
-            this.Resolution.Size = new System.Drawing.Size(107, 21);
-            this.Resolution.TabIndex = 6;
-            this.Resolution.Text = "Rozdzielczość";
             this.Resolution.UseVisualStyleBackColor = true;
             this.Resolution.Click += new System.EventHandler(this.Resolution_Click);
             // 
             // Page
             // 
-            this.Page.Location = new System.Drawing.Point(10, 460);
+            resources.ApplyResources(this.Page, "Page");
             this.Page.Name = "Page";
-            this.Page.Size = new System.Drawing.Size(92, 22);
-            this.Page.TabIndex = 7;
-            this.Page.Text = "Otwrzórz stronę";
             this.Page.UseVisualStyleBackColor = true;
             this.Page.Click += new System.EventHandler(this.Page_Click);
             // 
             // Motion
             // 
-            this.Motion.Location = new System.Drawing.Point(110, 459);
+            resources.ApplyResources(this.Motion, "Motion");
             this.Motion.Name = "Motion";
-            this.Motion.Size = new System.Drawing.Size(147, 23);
-            this.Motion.TabIndex = 8;
-            this.Motion.Text = "Włącz wykrywanie ruchu";
             this.Motion.UseVisualStyleBackColor = true;
             this.Motion.Click += new System.EventHandler(this.Motion_Click);
             // 
+            // MCI_combo_box
+            // 
+            this.MCI_combo_box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MCI_combo_box.FormattingEnabled = true;
+            resources.ApplyResources(this.MCI_combo_box, "MCI_combo_box");
+            this.MCI_combo_box.Name = "MCI_combo_box";
+            this.MCI_combo_box.SelectedIndexChanged += new System.EventHandler(this.MCI_combobox_SelectedIndexChanged);
+            // 
+            // MDI_text
+            // 
+            resources.ApplyResources(this.MDI_text, "MDI_text");
+            this.MDI_text.Name = "MDI_text";
+            // 
+            // MotionSens
+            // 
+            this.MotionSens.DecimalPlaces = 1;
+            this.MotionSens.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            resources.ApplyResources(this.MotionSens, "MotionSens");
+            this.MotionSens.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MotionSens.Name = "MotionSens";
+            this.MotionSens.ValueChanged += new System.EventHandler(this.MotionSens_ValueChanged);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(455, 494);
+            resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.MotionSens);
+            this.Controls.Add(this.MDI_text);
+            this.Controls.Add(this.MCI_combo_box);
             this.Controls.Add(this.Motion);
             this.Controls.Add(this.Page);
             this.Controls.Add(this.Resolution);
@@ -141,10 +160,13 @@
             this.Controls.Add(this.Disconnect);
             this.Controls.Add(this.Connect);
             this.Controls.Add(this.CamView);
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CamView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MotionSens)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -159,6 +181,10 @@
         private System.Windows.Forms.Button Resolution;
         private System.Windows.Forms.Button Page;
         private System.Windows.Forms.Button Motion;
+        private System.Windows.Forms.ComboBox MCI_combo_box;
+        private System.Windows.Forms.Label MDI_text;
+        private System.Windows.Forms.NumericUpDown MotionSens;
+        private System.Windows.Forms.Label label1;
     }
 }
 

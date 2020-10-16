@@ -19,6 +19,7 @@ namespace Lab_12_Cam
         string captureFile;
         private System.Windows.Forms.Timer timer;
         bool motionCapture = false;
+        bool motionInfo = false;
         public Form1()
         {
             InitializeComponent();
@@ -59,10 +60,18 @@ namespace Lab_12_Cam
                 string desc = Directory.GetCurrentDirectory() + "\\app.jpg";
                 try
                 {
-                    USBCam.getInstance().SaveImageWithName(temp, motionCapture);
+                    bool test = USBCam.getInstance().SaveImageWithName(temp, motionCapture);
                     if (File.Exists(desc))
                         File.Delete(desc);
                     System.IO.File.Move(Directory.GetCurrentDirectory() + "\\appTemp.jpg", Directory.GetCurrentDirectory() + "\\app.jpg");
+                    if (test && !motionInfo)
+                    {
+                        motionInfo = true;
+                        if (MessageBox.Show("Nie ruszaj się!", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            motionInfo = false;
+                        }
+                    }
                 }
                 catch (Exception) { }
             }
@@ -70,12 +79,16 @@ namespace Lab_12_Cam
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            USBCam.getInstance().Container = CamView;
+            USBCam cam = USBCam.getInstance();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            cam.Container = CamView;
             disableButtons();
             timer = new System.Windows.Forms.Timer();
             timer.Tick += new EventHandler(tick_function);
             timer.Interval = 500;
             timer.Start();
+            MCI_combo_box.DataSource = cam.ListOfDevices;
+            MotionSens.Value = Convert.ToDecimal(1-cam.image_diff);
         }
 
         private void CamView_Click(object sender, EventArgs e)
@@ -169,6 +182,33 @@ namespace Lab_12_Cam
                 Process.Start(sInfo);
                 Motion.Text = "Wyłącz wykrywanie ruchu";
             }
+        }
+
+        private void MCI_combobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            USBCam cam = USBCam.getInstance();
+            if (cam.is_enabled)
+            {
+                int index = ((ComboBox)sender).SelectedIndex;
+
+                cam.Dispose();
+                cam.DeviceID = index;
+
+                try
+                {
+                    cam.OpenConnection();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    disableButtons();
+                }
+            }
+        }
+
+        private void MotionSens_ValueChanged(object sender, EventArgs e)
+        {
+            USBCam.getInstance().image_diff = 1-(float)((NumericUpDown)sender).Value;
         }
     }
 }
