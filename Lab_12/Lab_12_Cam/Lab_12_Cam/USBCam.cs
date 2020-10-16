@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Drawing.Imaging;
 
 namespace Lab_12_Cam
 {
@@ -183,40 +184,51 @@ namespace Lab_12_Cam
             if (data != null && data.GetDataPresent(typeof(System.Drawing.Bitmap)))
             {
                 oImage = (Image)data.GetData(typeof(System.Drawing.Bitmap));
-                if(oImage != null) {
-                    oImage.Save(name, System.Drawing.Imaging.ImageFormat.Bmp);
-                    if (last_frame != null){
+                if(oImage != null)
+                {
+                    Bitmap tmp = last_frame;
+                    last_frame = (Bitmap)oImage;
+                    if (tmp != null){
                         if (test_movment)
                         {
-                            movment = check_movment((Bitmap)oImage);
+                            movment = check_movment(tmp, last_frame);
                         }
-                        last_frame.Dispose();
+                        tmp.Save(name, System.Drawing.Imaging.ImageFormat.Bmp);
+                        tmp.Dispose();
                     }
-                    last_frame = (Bitmap)oImage;
                 }
             }
             return movment;
         }
 
-        private bool check_movment(Bitmap image)
+        //https://docs.microsoft.com/pl-pl/dotnet/api/system.drawing.bitmap.unlockbits?view=dotnet-plat-ext-3.1
+        //zamiana na bitmape bo to coś wolne
+        private bool check_movment(Bitmap image, Bitmap image2)
         {
             int frameCount = image.Width * image.Height;
             int frameDiff = 0;
-            for (int i=0; i<image.Width; i++)
+            Rectangle rect = new Rectangle(0, 0, image.Width, image.Height);
+
+            BitmapData data1 = image.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
+            BitmapData data2 = image2.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
+            int offset = data1.Stride - image.Width;
+            unsafe
             {
-                for(int j=0; j<image.Height; j++)
+                byte* ptr1 = (byte*)data1.Scan0.ToPointer();
+                byte* ptr2 = (byte*)data2.Scan0.ToPointer();
+                for (int i = 0; i < frameCount; i++)
                 {
-                    Color test1 = image.GetPixel(i, j);
-                    Color test2 = last_frame.GetPixel(i, j);
-                    double test = (Math.Pow((double)test1.R - (double)test2.R, 2)
-                        + Math.Pow((double)test1.G - (double)test2.G, 2)
-                        + Math.Pow((double)test1.B - (double)test2.B, 2))/195075;
-                    if (test > image_diff)
+                    if (ptr1[i] != ptr2[i])
                     {
+                        ptr1[i] = 0b00001001;
                         frameDiff++;
                     }
                 }
             }
+
+            image.UnlockBits(data1);
+            image2.UnlockBits(data2);
+
             if ((float)frameDiff/frameCount>image_diff)
             {
                 return true;
@@ -226,14 +238,14 @@ namespace Lab_12_Cam
 
         public void StartRecord(string name)
         {
-            SendMessage(hHwnd, WM_CAP_FILE_SET_CAPTURE_FILE, 0, name+".avi");
+            SendMessage(hHwnd, WM_CAP_FILE_SET_CAPTURE_FILE, 0, name);
             SendMessage(hHwnd, WM_CAP_SEQUENCE, 0, 0);
         }
 
         public void StopRecord(string name)
         {
             SendMessage(hHwnd, WM_CAP_STOP, 0, 0);
-            SendMessage(hHwnd, WM_CAP_FILE_SAVEAS, 0, name + ".avi");
+            SendMessage(hHwnd, WM_CAP_FILE_SAVEAS, 0, name);
         }
 
         public void ChangeParameters()

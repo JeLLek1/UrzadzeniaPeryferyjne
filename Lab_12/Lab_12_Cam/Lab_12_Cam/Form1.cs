@@ -16,7 +16,7 @@ namespace Lab_12_Cam
     public partial class Form1 : Form
     {
         short recordState = 0;
-        string captureFile = "video";
+        string captureFile;
         private System.Windows.Forms.Timer timer;
         bool motionCapture = false;
         public Form1()
@@ -59,10 +59,7 @@ namespace Lab_12_Cam
                 string desc = Directory.GetCurrentDirectory() + "\\app.jpg";
                 try
                 {
-                    if(USBCam.getInstance().SaveImageWithName(temp, motionCapture))
-                    {
-                        MessageBox.Show("Nie ruszaj się!", "Stop", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    USBCam.getInstance().SaveImageWithName(temp, motionCapture);
                     if (File.Exists(desc))
                         File.Delete(desc);
                     System.IO.File.Move(Directory.GetCurrentDirectory() + "\\appTemp.jpg", Directory.GetCurrentDirectory() + "\\app.jpg");
@@ -120,10 +117,17 @@ namespace Lab_12_Cam
 
             if (recordState == 0)
             {
-                recordState = 1;
-                InputBox("Wprowadź nazwę pliku", "format .avi", ref captureFile);
-                Record.Text = "Zatrzymaj nagrywanie";
-                USBCam.getInstance().StartRecord(captureFile);
+                SaveFileDialog sfdImage = new SaveFileDialog();
+                sfdImage.Filter = "(*.avi)|*.avi";
+
+                if (sfdImage.ShowDialog() == DialogResult.OK)
+                {
+                    Record.Text = "Zatrzymaj nagrywanie";
+                    captureFile = sfdImage.FileName;
+                    USBCam.getInstance().StartRecord(captureFile);
+                    recordState = 1;
+                }
+                
             }
             else
             {
@@ -131,48 +135,6 @@ namespace Lab_12_Cam
                 Record.Text = "Rozpocznij nagrywanie";
                 USBCam.getInstance().StopRecord(captureFile);
             }
-        }
-
-        public static DialogResult InputBox(string title, string promptText, ref string value)
-        {
-            Form form = new Form();
-            Label label = new Label();
-            TextBox textBox = new TextBox();
-            Button buttonOk = new Button();
-            Button buttonCancel = new Button();
-
-            form.Text = title;
-            label.Text = promptText;
-            textBox.Text = value;
-
-            buttonOk.Text = "OK";
-            buttonCancel.Text = "Cancel";
-            buttonOk.DialogResult = DialogResult.OK;
-            buttonCancel.DialogResult = DialogResult.Cancel;
-
-            label.SetBounds(9, 20, 372, 13);
-            textBox.SetBounds(12, 36, 372, 20);
-            buttonOk.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
-
-            label.AutoSize = true;
-            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
-            buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-
-            form.ClientSize = new Size(396, 107);
-            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
-            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-            form.FormBorderStyle = FormBorderStyle.FixedDialog;
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.MinimizeBox = false;
-            form.MaximizeBox = false;
-            form.AcceptButton = buttonOk;
-            form.CancelButton = buttonCancel;
-
-            DialogResult dialogResult = form.ShowDialog();
-            value = textBox.Text;
-            return dialogResult;
         }
 
         private void Parameters_Click(object sender, EventArgs e)
@@ -203,6 +165,8 @@ namespace Lab_12_Cam
             else
             {
                 motionCapture = true;
+                ProcessStartInfo sInfo = new ProcessStartInfo(Directory.GetCurrentDirectory() + "\\app.html");
+                Process.Start(sInfo);
                 Motion.Text = "Wyłącz wykrywanie ruchu";
             }
         }
