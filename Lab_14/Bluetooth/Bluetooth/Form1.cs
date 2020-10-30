@@ -45,14 +45,27 @@ namespace Bluetooth
             PairButton.Enabled          = false;
             deviceSelectedBox.Enabled   = false;
             OperationsBox.Enabled       = false;
+            BTDeviceCB.Enabled          = false;
         }
 
         private void BTAdapterCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BTAdapterCB.Enabled = false;
+            this.loadDevicesInformations();
+
+        }
+
+        private void LoadDevicesButton_Click(object sender, EventArgs e)
+        {
+            this.loadDevicesInformations();
+        }
+
+        private void loadDevicesInformations()
+        {
             if (!bg_search.IsBusy)
             {
+                BTAdapterCB.Enabled = false;
                 BTDeviceCB.Enabled = false;
+                LoadDevicesButton.Enabled = false;
                 this.UseWaitCursor = true;
                 this.UseWaitCursor = true;
                 AdapterInfo.Text = "Trwa wczytywanie urządzeń...";
@@ -60,7 +73,6 @@ namespace Bluetooth
                 object[] parameters = new object[] { BTAdapterCB.SelectedItem };
                 bg_search.RunWorkerAsync(parameters);
             }
-
         }
 
         private void bg_search_devices(object sender, DoWorkEventArgs e)
@@ -77,6 +89,7 @@ namespace Bluetooth
             {
                 MessageBox.Show("Zakończono wyszukiwać urządzenia", "Koniec!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 BTDeviceCB.Enabled = true;
+                LoadDevicesButton.Enabled = true;
             }
             BTDeviceCB.DataSource = new BindingSource(bt.BTDevices, null);
             BTAdapterCB.Enabled = true;
@@ -205,7 +218,7 @@ namespace Bluetooth
                     setDeviceInfo();
                     break;
                 default:
-                    MessageBox.Show("Nie udało się wysłać pliku. Spróbuj sparować urządzenie ponownie", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Nie udało się wysłać pliku", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     setDeviceInfo(true);
                     break;
             }

@@ -45,9 +45,10 @@
             this.DeviceNameInput = new System.Windows.Forms.TextBox();
             this.ParingText = new System.Windows.Forms.Label();
             this.OperationsBox = new System.Windows.Forms.GroupBox();
+            this.refreshData = new System.Windows.Forms.Button();
             this.SendingText = new System.Windows.Forms.Label();
             this.SendFileButton = new System.Windows.Forms.Button();
-            this.refreshData = new System.Windows.Forms.Button();
+            this.LoadDevicesButton = new System.Windows.Forms.Button();
             this.deviceSelectedBox.SuspendLayout();
             this.OperationsBox.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +75,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 72);
+            this.label2.Location = new System.Drawing.Point(12, 75);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(116, 13);
             this.label2.TabIndex = 4;
@@ -84,7 +85,7 @@
             // 
             this.BTDeviceCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BTDeviceCB.FormattingEnabled = true;
-            this.BTDeviceCB.Location = new System.Drawing.Point(15, 88);
+            this.BTDeviceCB.Location = new System.Drawing.Point(15, 91);
             this.BTDeviceCB.Name = "BTDeviceCB";
             this.BTDeviceCB.Size = new System.Drawing.Size(345, 21);
             this.BTDeviceCB.TabIndex = 5;
@@ -93,14 +94,14 @@
             // AdapterInfo
             // 
             this.AdapterInfo.AutoSize = true;
-            this.AdapterInfo.Location = new System.Drawing.Point(12, 47);
+            this.AdapterInfo.Location = new System.Drawing.Point(132, 54);
             this.AdapterInfo.Name = "AdapterInfo";
             this.AdapterInfo.Size = new System.Drawing.Size(0, 13);
             this.AdapterInfo.TabIndex = 6;
             // 
             // PairButton
             // 
-            this.PairButton.Location = new System.Drawing.Point(15, 115);
+            this.PairButton.Location = new System.Drawing.Point(15, 118);
             this.PairButton.Name = "PairButton";
             this.PairButton.Size = new System.Drawing.Size(109, 22);
             this.PairButton.TabIndex = 7;
@@ -118,9 +119,9 @@
             this.deviceSelectedBox.Controls.Add(this.label5);
             this.deviceSelectedBox.Controls.Add(this.label4);
             this.deviceSelectedBox.Controls.Add(this.DeviceNameInput);
-            this.deviceSelectedBox.Location = new System.Drawing.Point(15, 143);
+            this.deviceSelectedBox.Location = new System.Drawing.Point(15, 146);
             this.deviceSelectedBox.Name = "deviceSelectedBox";
-            this.deviceSelectedBox.Size = new System.Drawing.Size(345, 141);
+            this.deviceSelectedBox.Size = new System.Drawing.Size(345, 146);
             this.deviceSelectedBox.TabIndex = 8;
             this.deviceSelectedBox.TabStop = false;
             this.deviceSelectedBox.Text = "Informacje na temat urządzenia:";
@@ -200,7 +201,7 @@
             // ParingText
             // 
             this.ParingText.AutoSize = true;
-            this.ParingText.Location = new System.Drawing.Point(130, 120);
+            this.ParingText.Location = new System.Drawing.Point(132, 123);
             this.ParingText.Name = "ParingText";
             this.ParingText.Size = new System.Drawing.Size(0, 13);
             this.ParingText.TabIndex = 9;
@@ -210,12 +211,22 @@
             this.OperationsBox.Controls.Add(this.refreshData);
             this.OperationsBox.Controls.Add(this.SendingText);
             this.OperationsBox.Controls.Add(this.SendFileButton);
-            this.OperationsBox.Location = new System.Drawing.Point(12, 290);
+            this.OperationsBox.Location = new System.Drawing.Point(12, 298);
             this.OperationsBox.Name = "OperationsBox";
             this.OperationsBox.Size = new System.Drawing.Size(347, 47);
             this.OperationsBox.TabIndex = 10;
             this.OperationsBox.TabStop = false;
             this.OperationsBox.Text = "Operacje";
+            // 
+            // refreshData
+            // 
+            this.refreshData.Location = new System.Drawing.Point(249, 19);
+            this.refreshData.Name = "refreshData";
+            this.refreshData.Size = new System.Drawing.Size(90, 23);
+            this.refreshData.TabIndex = 2;
+            this.refreshData.Text = "OdświerzDane";
+            this.refreshData.UseVisualStyleBackColor = true;
+            this.refreshData.Click += new System.EventHandler(this.refreshData_Click);
             // 
             // SendingText
             // 
@@ -235,21 +246,22 @@
             this.SendFileButton.UseVisualStyleBackColor = true;
             this.SendFileButton.Click += new System.EventHandler(this.SendFileButton_Click);
             // 
-            // refreshData
+            // LoadDevicesButton
             // 
-            this.refreshData.Location = new System.Drawing.Point(249, 19);
-            this.refreshData.Name = "refreshData";
-            this.refreshData.Size = new System.Drawing.Size(90, 23);
-            this.refreshData.TabIndex = 2;
-            this.refreshData.Text = "OdświerzDane";
-            this.refreshData.UseVisualStyleBackColor = true;
-            this.refreshData.Click += new System.EventHandler(this.refreshData_Click);
+            this.LoadDevicesButton.Location = new System.Drawing.Point(15, 49);
+            this.LoadDevicesButton.Name = "LoadDevicesButton";
+            this.LoadDevicesButton.Size = new System.Drawing.Size(111, 23);
+            this.LoadDevicesButton.TabIndex = 11;
+            this.LoadDevicesButton.Text = "Wczytaj urządzenia";
+            this.LoadDevicesButton.UseVisualStyleBackColor = true;
+            this.LoadDevicesButton.Click += new System.EventHandler(this.LoadDevicesButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 341);
+            this.ClientSize = new System.Drawing.Size(374, 375);
+            this.Controls.Add(this.LoadDevicesButton);
             this.Controls.Add(this.OperationsBox);
             this.Controls.Add(this.ParingText);
             this.Controls.Add(this.deviceSelectedBox);
@@ -295,6 +307,7 @@
         private System.Windows.Forms.Button SendFileButton;
         private System.Windows.Forms.Label SendingText;
         private System.Windows.Forms.Button refreshData;
+        private System.Windows.Forms.Button LoadDevicesButton;
     }
 }
 
