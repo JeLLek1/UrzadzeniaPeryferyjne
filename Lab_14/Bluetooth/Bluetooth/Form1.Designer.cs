@@ -45,8 +45,9 @@
             this.DeviceNameInput = new System.Windows.Forms.TextBox();
             this.ParingText = new System.Windows.Forms.Label();
             this.OperationsBox = new System.Windows.Forms.GroupBox();
-            this.SendFileButton = new System.Windows.Forms.Button();
             this.SendingText = new System.Windows.Forms.Label();
+            this.SendFileButton = new System.Windows.Forms.Button();
+            this.refreshData = new System.Windows.Forms.Button();
             this.deviceSelectedBox.SuspendLayout();
             this.OperationsBox.SuspendLayout();
             this.SuspendLayout();
@@ -206,6 +207,7 @@
             // 
             // OperationsBox
             // 
+            this.OperationsBox.Controls.Add(this.refreshData);
             this.OperationsBox.Controls.Add(this.SendingText);
             this.OperationsBox.Controls.Add(this.SendFileButton);
             this.OperationsBox.Location = new System.Drawing.Point(12, 290);
@@ -214,6 +216,14 @@
             this.OperationsBox.TabIndex = 10;
             this.OperationsBox.TabStop = false;
             this.OperationsBox.Text = "Operacje";
+            // 
+            // SendingText
+            // 
+            this.SendingText.AutoSize = true;
+            this.SendingText.Location = new System.Drawing.Point(84, 24);
+            this.SendingText.Name = "SendingText";
+            this.SendingText.Size = new System.Drawing.Size(0, 13);
+            this.SendingText.TabIndex = 1;
             // 
             // SendFileButton
             // 
@@ -225,13 +235,15 @@
             this.SendFileButton.UseVisualStyleBackColor = true;
             this.SendFileButton.Click += new System.EventHandler(this.SendFileButton_Click);
             // 
-            // SendingText
+            // refreshData
             // 
-            this.SendingText.AutoSize = true;
-            this.SendingText.Location = new System.Drawing.Point(84, 24);
-            this.SendingText.Name = "SendingText";
-            this.SendingText.Size = new System.Drawing.Size(0, 13);
-            this.SendingText.TabIndex = 1;
+            this.refreshData.Location = new System.Drawing.Point(249, 19);
+            this.refreshData.Name = "refreshData";
+            this.refreshData.Size = new System.Drawing.Size(90, 23);
+            this.refreshData.TabIndex = 2;
+            this.refreshData.Text = "OdświerzDane";
+            this.refreshData.UseVisualStyleBackColor = true;
+            this.refreshData.Click += new System.EventHandler(this.refreshData_Click);
             // 
             // Form1
             // 
@@ -282,6 +294,7 @@
         private System.Windows.Forms.GroupBox OperationsBox;
         private System.Windows.Forms.Button SendFileButton;
         private System.Windows.Forms.Label SendingText;
+        private System.Windows.Forms.Button refreshData;
     }
 }
 

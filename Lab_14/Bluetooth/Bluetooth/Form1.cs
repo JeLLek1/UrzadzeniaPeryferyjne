@@ -129,22 +129,12 @@ namespace Bluetooth
                 deviceSelectedBox.Enabled = true;
                 DeviceNameInput.Text = info.DeviceName;
                 DeviceAddressInput.Text = info.DeviceAddress.ToString();
-                if (forceNotPaired)
-                {
-                    AutorisationInput.Text = "Nie";
-                    PairButton.Enabled = true;
-                    OperationsBox.Enabled = false;
-                    ConnectInput.Text = "Nie";
-                    return false;
-                }
-                else
-                {
-                    AutorisationInput.Text = info.Authenticated ? "Tak" : "Nie";
-                    PairButton.Enabled = !info.Authenticated;
-                    OperationsBox.Enabled = info.Authenticated;
-                    ConnectInput.Text = info.Connected ? "Tak" : "Nie";
-                    return info.Authenticated;
-                }
+
+                AutorisationInput.Text = (info.Authenticated && !forceNotPaired) ? "Tak" : "Nie";
+                PairButton.Enabled = ((!info.Authenticated || forceNotPaired) && !bg_pair.IsBusy);
+                OperationsBox.Enabled = (info.Authenticated && !bg_sendFile.IsBusy && !forceNotPaired);
+                ConnectInput.Text = (info.Connected && !forceNotPaired) ? "Tak" : "Nie";
+                return info.Authenticated && !forceNotPaired;
             }
             deviceSelectedBox.Enabled = false;
             DeviceNameInput.Text = "";
@@ -173,6 +163,8 @@ namespace Bluetooth
                     OperationsBox.Enabled = false;
                     object[] parameters = new object[] { BTDeviceCB.SelectedItem, openFileDialog.FileName };
                     bg_sendFile.RunWorkerAsync(parameters);
+                    ConnectInput.Text = "Tak";
+                    AutorisationInput.Text = "Tak";
                 }
             }
         }
@@ -183,6 +175,11 @@ namespace Bluetooth
             BluetoothControler bt = BluetoothControler.getInstance();
             e.Result = bt.sendFile((string)parameters[1], parameters[0]);
 
+        }
+
+        private void refreshData_Click(object sender, EventArgs e)
+        {
+            setDeviceInfo();
         }
 
         private void bg_send_to_device_end(object sender, RunWorkerCompletedEventArgs e)
