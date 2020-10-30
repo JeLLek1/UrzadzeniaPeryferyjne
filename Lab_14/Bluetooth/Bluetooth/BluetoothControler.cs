@@ -138,7 +138,7 @@ namespace Bluetooth
                     var value = -1;
                     try
                     {
-                        string code = Form1.displayStringPrompt("Parowanie z urządzeniem " + e.Device.DeviceAddress.ToString(), "Wprowadź kod wyświetlany na ekranie");
+                        string code = Bluetooth.displayStringPrompt("Parowanie z urządzeniem " + e.Device.DeviceAddress.ToString(), "Wprowadź kod wyświetlany na ekranie");
                         value = Int32.Parse(code);
                     }
                     catch (Exception) { }

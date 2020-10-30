@@ -12,13 +12,13 @@ using InTheHand.Net.Sockets;
 
 namespace Bluetooth
 {
-    public partial class Form1 : Form
+    public partial class Bluetooth : Form
     {
         BluetoothControler bt;
         BackgroundWorker bg_search;
         BackgroundWorker bg_pair;
         BackgroundWorker bg_sendFile;
-        public Form1()
+        public Bluetooth()
         {
             
             InitializeComponent();
