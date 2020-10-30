@@ -176,8 +176,6 @@ namespace Bluetooth
                     OperationsBox.Enabled = false;
                     object[] parameters = new object[] { BTDeviceCB.SelectedItem, openFileDialog.FileName };
                     bg_sendFile.RunWorkerAsync(parameters);
-                    ConnectInput.Text = "Tak";
-                    AutorisationInput.Text = "Tak";
                 }
             }
         }
