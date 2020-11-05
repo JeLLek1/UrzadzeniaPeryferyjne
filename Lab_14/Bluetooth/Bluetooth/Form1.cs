@@ -20,9 +20,12 @@ namespace Bluetooth
         BackgroundWorker bg_sendFile;
         public Bluetooth()
         {
-            
-            InitializeComponent();
-            bt = BluetoothControler.getInstance();
+            try {
+                InitializeComponent();
+                bt = BluetoothControler.getInstance();
+            }
+            catch(Exception){}
+
             bg_search = new BackgroundWorker();
             bg_search.DoWork                += new DoWorkEventHandler(bg_search_devices);
             bg_search.RunWorkerCompleted    += new RunWorkerCompletedEventHandler(bg_search_devices_end);
@@ -36,16 +39,24 @@ namespace Bluetooth
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            BTAdapterCB.DataSource      = new BindingSource(bt.BTAdapters, null);
-            BTAdapterCB.DisplayMember   = "KEY";
-            BTAdapterCB.ValueMember     = "VALUE";
-            BTDeviceCB.DisplayMember    = "KEY";
-            BTDeviceCB.ValueMember      = "VALUE";
-            BTDeviceCB.Enabled          = false;
-            PairButton.Enabled          = false;
-            deviceSelectedBox.Enabled   = false;
-            OperationsBox.Enabled       = false;
-            BTDeviceCB.Enabled          = false;
+            if (bt != null)
+            {
+                BTAdapterCB.DataSource = new BindingSource(bt.BTAdapters, null);
+                BTAdapterCB.DisplayMember = "KEY";
+                BTAdapterCB.ValueMember = "VALUE";
+                BTDeviceCB.DisplayMember = "KEY";
+                BTDeviceCB.ValueMember = "VALUE";
+                BTDeviceCB.Enabled = false;
+                PairButton.Enabled = false;
+                deviceSelectedBox.Enabled = false;
+                OperationsBox.Enabled = false;
+                BTDeviceCB.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Nalerzy włączyć adapter BT aby korzystać z tej aplikacji.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
 
         private void BTAdapterCB_SelectedIndexChanged(object sender, EventArgs e)

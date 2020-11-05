@@ -224,7 +224,7 @@
             this.refreshData.Name = "refreshData";
             this.refreshData.Size = new System.Drawing.Size(90, 23);
             this.refreshData.TabIndex = 2;
-            this.refreshData.Text = "Odświerz Dane";
+            this.refreshData.Text = "Odśwież Dane";
             this.refreshData.UseVisualStyleBackColor = true;
             this.refreshData.Click += new System.EventHandler(this.refreshData_Click);
             // 
