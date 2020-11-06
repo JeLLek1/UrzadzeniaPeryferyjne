@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>Podgląd kamerki</title>
+	<style>
+	.wrapper{
+		width: 90%;
+		max-width: 1080px;
+		margin: 0 auto;
+		position: relative;
+	}
+	.fixed-center{
+		position: fixed;
+		left: 0;
+		top: 50%;
+		transform: translate(0, -50%);
+		width: 100%;
+	}
+	</style>
+</head>
+<body>
+<div class="fixed-center">
+<div class="wrapper">
+	<img src="app.html" name="camera_preview" style="width: 100%; height: auto"/>
+	<script> 
+	setInterval(function(){ 
+		document.camera_preview.src="app.jpg?time="+(new Date()).getTime();
+	}, 500);
+	</script>
+</div>
+</div>
+</body>
+</html>
