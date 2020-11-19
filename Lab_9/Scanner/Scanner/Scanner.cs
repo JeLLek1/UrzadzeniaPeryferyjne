@@ -64,10 +64,16 @@ namespace Scanner
         //okno dialogowe wyboru skanera
         public bool selectScanner()
         {
-            //(typ urządzenia, czy zawsze pokazać okno wyboru? nwm kiedy nie pokaże jak sprawdzałem z false to i tak pokazywało, Czy bez wybranego urządzenia ma być błąd).
-            this.scanner = new WIA.CommonDialog().ShowSelectDevice(WIA.WiaDeviceType.ScannerDeviceType, false, false);
+            try {
+                //(typ urządzenia, czy zawsze pokazać okno wyboru? nwm kiedy nie pokaże jak sprawdzałem z false to i tak pokazywało, Czy bez wybranego urządzenia ma być błąd).
+                this.scanner = new WIA.CommonDialog().ShowSelectDevice(WIA.WiaDeviceType.ScannerDeviceType, false, false);
+            }
+            catch (Exception)
+            {
+                this.scanner = null;
+            }
             //czy wybrano skaner
-            if(this.scanner == null)
+            if (this.scanner == null)
             {
                 return false;
             }
