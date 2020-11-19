@@ -40,7 +40,6 @@ namespace Scanner
 
         private void dm_OnEvent(string EventID, string DeviceID, string ItemID)
         {
-            string test = EventID + " " + DeviceID + " " + ItemID;
             WIA.Device scannerFromEvent = null;
             foreach (WIA.DeviceInfo info in manager.DeviceInfos)
             {
