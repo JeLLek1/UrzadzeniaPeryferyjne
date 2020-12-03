@@ -38,8 +38,10 @@ namespace JoystickProgram
             this.mousePage = new System.Windows.Forms.TabPage();
             this.enableMouseControl = new System.Windows.Forms.Button();
             this.drawPage = new System.Windows.Forms.TabPage();
+            this.clearButton = new System.Windows.Forms.Button();
             this.drawBox = new System.Windows.Forms.PictureBox();
             this.colorButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.buttonsPage.SuspendLayout();
             this.mousePage.SuspendLayout();
@@ -132,6 +134,8 @@ namespace JoystickProgram
             // 
             // drawPage
             // 
+            this.drawPage.Controls.Add(this.saveButton);
+            this.drawPage.Controls.Add(this.clearButton);
             this.drawPage.Controls.Add(this.drawBox);
             this.drawPage.Controls.Add(this.colorButton);
             this.drawPage.Location = new System.Drawing.Point(4, 22);
@@ -142,11 +146,21 @@ namespace JoystickProgram
             this.drawPage.Text = "Rysowanie";
             this.drawPage.UseVisualStyleBackColor = true;
             // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(234, 6);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(227, 28);
+            this.clearButton.TabIndex = 3;
+            this.clearButton.Text = "Wyczyść";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
             // drawBox
             // 
             this.drawBox.Location = new System.Drawing.Point(8, 40);
             this.drawBox.Name = "drawBox";
-            this.drawBox.Size = new System.Drawing.Size(452, 450);
+            this.drawBox.Size = new System.Drawing.Size(452, 419);
             this.drawBox.TabIndex = 2;
             this.drawBox.TabStop = false;
             // 
@@ -154,11 +168,21 @@ namespace JoystickProgram
             // 
             this.colorButton.Location = new System.Drawing.Point(6, 6);
             this.colorButton.Name = "colorButton";
-            this.colorButton.Size = new System.Drawing.Size(454, 28);
+            this.colorButton.Size = new System.Drawing.Size(227, 28);
             this.colorButton.TabIndex = 0;
             this.colorButton.Text = "Wybierz kolor";
             this.colorButton.UseVisualStyleBackColor = true;
             this.colorButton.Click += new System.EventHandler(this.colorButton_Click);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(6, 465);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(454, 28);
+            this.saveButton.TabIndex = 4;
+            this.saveButton.Text = "Zapisz do pliku";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // JoystickForm
             // 
@@ -197,6 +221,8 @@ namespace JoystickProgram
         private System.Windows.Forms.PictureBox drawBox;
         private System.Windows.Forms.Button colorButton;
         private System.Windows.Forms.TextBox joystickInfo;
+        private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.Button saveButton;
     }
 }
 

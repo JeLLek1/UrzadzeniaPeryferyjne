@@ -103,5 +103,20 @@ namespace JoystickProgram
             }
             catch { }
         }
+
+        public void Clear()
+        {
+            bitmap = new Bitmap(box.Width, box.Height, PixelFormat.Format24bppRgb);
+            using (Graphics grp = Graphics.FromImage(bitmap))
+            {
+                grp.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
+            }
+            SetCursor();
+        }
+
+        public void Save(string name)
+        {
+            this.bitmap.Save(name);
+        }
     }
 }

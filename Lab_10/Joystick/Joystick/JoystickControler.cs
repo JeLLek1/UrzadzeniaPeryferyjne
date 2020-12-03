@@ -130,7 +130,7 @@ namespace JoystickProgram
             return map;
         }
 
-        public bool areNewEvents()
+        public bool AreNewEvents()
         {
             if (joystick == null) return false;
             joystick.Poll();

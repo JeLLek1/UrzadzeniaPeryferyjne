@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace JoystickProgram
 {
     public partial class JoystickForm : Form
     {
-        JoystickControler joystickControler = new JoystickControler();
         BackgroundWorker InputReader_bg = new BackgroundWorker();
+        JoystickControler joystickControler;
         MouseControler mouseControler;
         DrawContoler drawContoler;
         Stopwatch timer;
@@ -23,8 +24,17 @@ namespace JoystickProgram
 
         private void JoystickForm_Load(object sender, EventArgs e)
         {
-            this.loadDevicesList();
-
+            try
+            {
+                joystickControler = new JoystickControler();
+                this.loadDevicesList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Błąd inicjalizacji", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+            
             this.mouseControler = new MouseControler();
             this.drawContoler = new DrawContoler(this.drawBox);
             this.tabControl.Visible = false;
@@ -44,7 +54,7 @@ namespace JoystickProgram
 
                 if (!this.joystickControler.isJoystickChoosen()) continue;
                 bool showNew = false;
-                if (this.joystickControler.areNewEvents())
+                if (this.joystickControler.AreNewEvents())
                     showNew = true;
 
                 var leftStick = this.joystickControler.GetPositionStick();
@@ -173,6 +183,30 @@ namespace JoystickProgram
             this.enableMouseControl.Text = "Włącz sterowanie myszą";
 
             this.drawContoler.isActive = (tabControl.SelectedIndex == 2);
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            this.drawContoler.Clear();
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfdImage = new SaveFileDialog();
+            sfdImage.Filter = "(*.bmp)|*.bmp";
+            sfdImage.InitialDirectory = Directory.GetCurrentDirectory();
+            if (sfdImage.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    this.drawContoler.Save(sfdImage.FileName);
+                }
+                catch
+                {
+                    MessageBox.Show("Nie udało się zapisać pliku", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
         }
     }
 }
