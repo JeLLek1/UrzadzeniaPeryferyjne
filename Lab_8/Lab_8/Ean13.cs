@@ -119,8 +119,8 @@ namespace Lab_8
         public Bitmap GenerateBarCode()
         {
             // wymiary płótna
-            var width = (int) (_Width * _Scale * 100);
-            var height = (int) (_Height * _Scale * 100);
+            var width = (int) (_Width * 100);
+            var height = (int) (_Height * 100);
             // rozmiar cyfry
             var digitHeight = _DigitHeight * _Scale * 100;
             // szerokość jednej linii
