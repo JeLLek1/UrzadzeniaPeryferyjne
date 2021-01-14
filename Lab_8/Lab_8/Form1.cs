@@ -74,7 +74,6 @@ namespace Lab_8
                 var eanSize = Ean13.GetCodeSize();
                 var barCode = Ean13.GetBarcodeBitmap();
 
-                var test = arg.Graphics.PageUnit;
                 arg.Graphics.DrawImage(Ean13.GetBarcodeBitmap(),
                     new RectangleF(
                         arg.PageSettings.Margins.Left,
