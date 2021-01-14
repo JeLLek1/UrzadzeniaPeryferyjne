@@ -13,7 +13,7 @@ namespace Lab_8
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EAN13());
+            Application.Run(new Form1());
         }
     }
 }

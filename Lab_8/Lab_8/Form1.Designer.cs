@@ -1,7 +1,7 @@
 ﻿
 namespace Lab_8
 {
-    partial class EAN13
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -141,7 +141,7 @@ namespace Lab_8
             this.MaximizeBox = false;
             this.Name = "EAN13";
             this.Text = "EAN13";
-            this.Load += new System.EventHandler(this.EAN13_Load);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBarCode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

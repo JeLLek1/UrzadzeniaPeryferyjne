@@ -74,13 +74,9 @@ namespace Lab_8
         public int CalculateControl()
         {
             var checkSum = 0;
-
             for (var i = 1; i < 12; i += 2) checkSum += Convert.ToInt32(BarCode.Substring(i, 1));
-
             checkSum *= 3;
-
             for (var i = 0; i < 12; i += 2) checkSum += Convert.ToInt32(BarCode.Substring(i, 1));
-
             return (10 - checkSum % 10) % 10;
         }
 

@@ -5,16 +5,16 @@ using System.Windows.Forms;
 
 namespace Lab_8
 {
-    public partial class EAN13 : Form
+    public partial class Form1 : Form
     {
         private Ean13 Ean13;
 
-        public EAN13()
+        public Form1()
         {
             InitializeComponent();
         }
 
-        private void EAN13_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             buttonAccept.Enabled = false;
             buttonPrint.Enabled = false;
